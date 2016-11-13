@@ -1,0 +1,14 @@
+<CONSUMER>
+	<ZK>
+		<ADDR zk.connect="KAFKA_ZK_ADDR" />
+		<SESSIONTIMEOUT zk.sessiontimeout.ms="6000" />
+		<CONNECTIONTIMEOUT zk.connectiontimeout.ms="6000" />
+	</ZK>
+	<BROKER>
+	</BROKER>
+	<INFO>
+		<AUTOCOMMIT autocommit.interval.ms="10000" />
+		<CONSUMERTIMEOUT consumer.timeout.ms="6000" />
+		<EXPIRETIME expiretime="200" />
+	</INFO>
+</CONSUMER>

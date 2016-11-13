@@ -1,0 +1,47 @@
+<icegrid>
+        <replica-group id="KafkaProducerProxy" />
+
+        <server-template id="KafkaProducerProxy">
+        <parameter name="Index" />
+        <parameter name="Replica" default="KafkaProducerProxy" />
+        <parameter name="LogLevel" default="WARN" />
+        <parameter name="Timeout" default="1000" />
+        <parameter name="JavaXms" />
+        <parameter name="JavaXmx" />
+                <icebox id="KafkaProducerProxy${Index}" exe="/opt/java/bin/java" activation="always" activation-timeout="600">
+                        <env>CLASSPATH=../lib64/KafkaProducerProxy.jar:$CLASSPATH</env>
+                        <option>-server</option>
+                        <option>-DLOG_PATH=../log/KafkaProducerProxy${Index}</option>
+                        <option>-Xss512k</option>
+                        <option>-XX:ThreadStackSize=512</option>
+                        <option>-Xms${JavaXms}</option>
+                        <option>-Xmx${JavaXmx}</option>
+                        <option>-XX:+UseParNewGC</option>
+                        <option>-XX:+UseConcMarkSweepGC</option>
+                        <option>-XX:NewRatio=2</option>
+			<option>-XX:+CMSIncrementalMode</option>
+                        <option>-XX:-CMSIncrementalPacing</option>
+                        <option>-XX:CMSIncrementalDutyCycle=100</option>
+                
+                        <option>-XX:+UseCMSCompactAtFullCollection</option>
+                        <option>-verbosegc</option> 
+                        <option>-XX:+PrintGCDetails</option>
+			<option>-Xloggc:../log/producer-gc.log</option>
+                        <option>-XX:+PrintGCTimeStamps</option>
+                        <option>IceBox.Server</option>
+
+                        <property name="IceBox.UseSharedCommunicator.KafkaProducerProxy${Index}" value="1"/>
+                        <property name="Service.KafkaProducerProxy${Index}.LogLevel" value="${LogLevel}"/>
+                        <property name="Ice.ThreadPool.Server.Size" value="10"/>
+                        <property name="Ice.ThreadPool.Server.SizeMax" value="1000"/>
+                        <property name="Ice.ThreadPool.Server.StackSize" value="131072"/>
+                        <service name="KafkaProducerProxy${Index}" entry="bfd.kafkaproducerclient.KafkaProducerProxyService">
+                                <adapter name="KafkaProducerProxy${Index}" id="KafkaProducerProxy${Index}" endpoints="tcp:udp" replica-group="${Replica}" >
+                                        <property name="KafkaProducerProxy${Index}.ThreadPool.Size" value="10"/>
+                                        <property name="KafkaProducerProxy${Index}.ThreadPool.SizeMax" value="1000"/>
+                                        <property name="KafkaProducerProxy${Index}.ThreadPool.StackSize" value="131072"/>
+                                </adapter>
+                        </service>
+                </icebox>
+        </server-template>
+</icegrid>

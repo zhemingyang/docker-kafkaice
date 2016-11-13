@@ -1,0 +1,50 @@
+<icegrid>
+        <replica-group id="KafkaConsumerProxy" />
+
+        <server-template id="KafkaConsumerProxy">
+        <parameter name="Index" />
+        <parameter name="Replica" default="KafkaConsumerProxy" />
+        <parameter name="LogLevel" default="WARN" />
+        <parameter name="Timeout" default="1000" />
+        <parameter name="JavaXms" />
+        <parameter name="JavaXmx" />
+                <icebox id="KafkaConsumerProxy${Index}" exe="/opt/java/bin/java" activation="always">
+                        <env>CLASSPATH=../lib64/KafkaConsumerProxy.jar</env>
+                        <option>-server</option>
+                        <option>-DLOG_PATH=../log/KafkaConsumerProxy${Index}</option>
+                        <option>-Xss512k</option>
+                        <option>-XX:ThreadStackSize=512</option>
+                        <option>-Xms${JavaXms}</option>
+                        <option>-Xmx${JavaXmx}</option>
+                        <option>-XX:+UseParNewGC</option>
+                        <option>-XX:+UseConcMarkSweepGC</option>
+                        <option>-XX:NewRatio=2</option>
+                        <option>-XX:+CMSIncrementalMode</option>
+                        <option>-XX:-CMSIncrementalPacing</option>
+                        <option>-XX:CMSIncrementalDutyCycle=90</option>
+                        <option>-XX:CMSIncrementalDutyCycleMin=0</option>
+                        <option>-XX:+UseCMSCompactAtFullCollection</option>
+
+			<option>-verbosegc</option>
+			<option>-XX:+PrintGCDetails</option>
+                        <option>-XX:+PrintGCTimeStamps</option>
+			<option>-Xloggc:../log/consumer-gc.log</option>
+
+                        <option>IceBox.Server</option>
+
+                        <property name="IceBox.UseSharedCommunicator.KafkaConsumerProxy${Index}" value="1"/>
+                        <property name="Service.KafkaConsumerProxy${Index}.LogLevel" value="${LogLevel}"/>
+                        <property name="Ice.ThreadPool.Server.Size" value="10"/>
+                        <property name="Ice.ThreadPool.Server.SizeMax" value="2000"/>
+                        <property name="Ice.ThreadPool.Server.StackSize" value="131072"/>
+                        <service name="KafkaConsumerProxy${Index}" entry="bfd.kafkaconsumerclient.KafkaConsumerClientService">
+                                <adapter name="KafkaConsumerProxy${Index}" id="KafkaConsumerProxy${Index}" endpoints="tcp:udp" replica-group="${Replica}" >
+                                        <property name="KafkaConsumerProxy${Index}.ThreadPool.Size" value="10"/>
+                                        <property name="KafkaConsumerProxy${Index}.ThreadPool.SizeMax" value="2000"/>
+                                        <property name="KafkaConsumerProxy${Index}.ThreadPool.StackSize" value="131072"/>
+                                </adapter>
+                        </service>
+                </icebox>
+        </server-template>
+</icegrid>
+

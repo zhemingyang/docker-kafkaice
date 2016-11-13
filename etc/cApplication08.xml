@@ -1,0 +1,9 @@
+<icegrid>
+        <application name="cApplication08">
+                <include file="template/consumer_template08.xml" />
+                <node name="kafka08-1">
+                <server-instance template="KafkaConsumerProxy" Index="0" LogLevel="INFO" JavaXms="256M" JavaXmx="256M" />
+                </node>
+       	</application>
+</icegrid>
+

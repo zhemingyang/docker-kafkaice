@@ -1,0 +1,17 @@
+<PRODUCER>
+	<BROKER>
+		<BROKERLIST metadata.broker.list="KAFKA_BROKER_ADDR" />
+		<TIMEOUT request.timeout.ms="4000"/>
+	</BROKER>
+	<INFO>
+		<SERIALIZER serializer.class="kafka.serializer.StringEncoder" />
+		<PARTITION partitioner.class="" />
+		<REQUESTACK request.required.acks="1"/>
+		<TYPE producer.type="async" />
+		<COMPRESS compression.codec="none" />
+		<EXPIRETIME expiretime="600" />
+	</INFO>
+	<TOPIC>
+		<NOTINDAYTOPIC topic.notindaytopic="DS.Input.Item,DS.Input.Item.Raw,DS.Input.News,DS.Input.Error,DS.Input.All.Gmaibaobao.test,DS.Input.Item.test,DS.Input.News.test"/>
+	</TOPIC>
+</PRODUCER>
