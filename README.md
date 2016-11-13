@@ -1,2 +1,2 @@
 # docker-kafkaice
-kafka ice runnning in docker
+Kafka Ice runnning in docker.
