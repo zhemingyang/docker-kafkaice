@@ -36,7 +36,7 @@
                         <property name="Ice.ThreadPool.Server.SizeMax" value="1000"/>
                         <property name="Ice.ThreadPool.Server.StackSize" value="131072"/>
                         <service name="KafkaProducerProxy${Index}" entry="bfd.kafkaproducerclient.KafkaProducerProxyService">
-                                <adapter name="KafkaProducerProxy${Index}" id="KafkaProducerProxy${Index}" endpoints="tcp:udp" replica-group="${Replica}" >
+                                <adapter name="KafkaProducerProxy${Index}" id="KafkaProducerProxy${Index}" endpoints="tcp -p 20001:udp" replica-group="${Replica}" >
                                         <property name="KafkaProducerProxy${Index}.ThreadPool.Size" value="10"/>
                                         <property name="KafkaProducerProxy${Index}.ThreadPool.SizeMax" value="1000"/>
                                         <property name="KafkaProducerProxy${Index}.ThreadPool.StackSize" value="131072"/>
